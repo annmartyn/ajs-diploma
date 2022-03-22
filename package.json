@@ -36,7 +36,10 @@
     "eslint": "^8.7.0",
     "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.4.5"
+    "live-server": "^1.1.0",
+    "mini-css-extract-plugin": "^2.4.5",
+    "normalize-url": "^7.0.3",
+    "webpack-dev-server": "^4.7.4"
   },
   "bugs": {
     "url": "https://github.com/annmartyn/ajs-diploma/issues"
