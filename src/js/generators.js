@@ -1,10 +1,4 @@
-/**
- * Generates random characters
- *
- * @param allowedTypes iterable of classes
- * @param maxLevel max character level
- * @returns Character type children (ex. Magician, Bowman, etc)
- */
+
 export function* characterGenerator(allowedTypes, maxLevel) {
   // TODO: write logic here
   let randomTypes = Math.floor(Math.random() * allowedTypes.length); //индекс 

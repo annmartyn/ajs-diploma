@@ -54,6 +54,7 @@ export default class GamePlay {
     for (let i = 0; i < this.boardSize ** 2; i += 1) {
       const cellEl = document.createElement('div');
       cellEl.classList.add('cell', 'map-tile', `map-tile-${calcTileType(i, this.boardSize)}`);
+   //   console.log(cellEl);
       cellEl.addEventListener('mouseenter', event => this.onCellEnter(event));
       cellEl.addEventListener('mouseleave', event => this.onCellLeave(event));
       cellEl.addEventListener('click', event => this.onCellClick(event));
@@ -74,20 +75,22 @@ export default class GamePlay {
     }
 
     for (const position of positions) {
-  //    console.log(position);
+    //  console.log(position);
       const cellEl = this.boardEl.children[position.position];
       const charEl = document.createElement('div');
-      charEl.classList.add('character', position.type);
+      charEl.classList.add('character.' + position.character.type);
 
       const healthEl = document.createElement('div');
       healthEl.classList.add('health-level');
 
       const healthIndicatorEl = document.createElement('div');
-      healthIndicatorEl.classList.add('health-level-indicator', `health-level-indicator-${calcHealthLevel(position.health)}`);
-      healthIndicatorEl.style.width = `${position.health}%`;
+      healthIndicatorEl.classList.add('health-level-indicator', `health-level-indicator-${calcHealthLevel(position.character.health)}`);
+      healthIndicatorEl.style.width = `${position.character.health}%`;
       healthEl.appendChild(healthIndicatorEl);
       charEl.appendChild(healthEl);
+      //console.log(charEl);
       cellEl.appendChild(charEl);
+
     }
   }
 
@@ -192,6 +195,7 @@ export default class GamePlay {
 
   deselectCell(index) {
     const cell = this.cells[index];
+    //console.log(cell);
     cell.classList.remove(...Array.from(cell.classList)
       .filter(o => o.startsWith('selected')));
   }

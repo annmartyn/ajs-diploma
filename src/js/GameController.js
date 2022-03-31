@@ -5,12 +5,12 @@ import GamePlay from "./GamePlay.js";
 import GameState from "./GameState.js";
 import PositionedCharacter from "./PositionedCharacter.js";
 import Character from "./Character.js";
-import Bowman from "./Bowman.js";
-import Magician from "./Magician.js";
-import Swordsman from "./Swordsman.js";
-import Undead from "./Undead.js";
-import Vampire from "./Vampire.js";
-import Daemon from "./Daemon.js";
+import Bowman from "./bowman.js";
+import Magician from "./magician.js";
+import Swordsman from "./swordsman.js";
+import Undead from "./undead.js";
+import Vampire from "./vampire.js";
+import Daemon from "./daemon.js";
 
 export default class GameController {
   constructor(GamePlay, stateService) {
@@ -39,8 +39,8 @@ export default class GameController {
 
   init() {
     this.GamePlay.drawUi(themes.prairie);
-    this.GamePlay.redrawPositions(this.generateGamerPos(this.randomGamer, [Bowman, Magician, Swordsman]));
-    this.GamePlay.redrawPositions(this.generateGamerPos(this.randomComp, [Daemon, Undead, Vampire]));
+    this.GamePlay.redrawPositions(this.generateGamerPos(this.randomGamer, this.arrayClassGamer));
+    this.GamePlay.redrawPositions(this.generateGamerPos(this.randomComp, this.arrayClassComputer));
     this.GamePlay.addCellEnterListener(this.onCellEnter.bind(this));
     this.GamePlay.addCellLeaveListener(this.onCellLeave.bind(this));
     this.GamePlay.addCellClickListener(this.onCellClick.bind(this));
@@ -52,8 +52,8 @@ export default class GameController {
   onNewGameClick() {
     this.position = [];
     this.GamePlay.drawUi(themes.prairie);
-    this.GamePlay.redrawPositions(this.generateGamerPos(this.randomGamer, [Bowman, Magician, Swordsman]));
-    this.GamePlay.redrawPositions(this.generateGamerPos(this.randomComp, [Daemon, Undead, Vampire]));
+    this.GamePlay.redrawPositions(this.generateGamerPos(this.randomGamer, this.arrayClassGamer));
+    this.GamePlay.redrawPositions(this.generateGamerPos(this.randomComp, this.arrayClassComputer));
     this.level = 1;
     this.scores = 0;
     this.teamComp = [];
@@ -75,7 +75,6 @@ export default class GameController {
   }
 
   generateGamerPos(characterRandom, arrayCharacter) {
-    console.log(characterRandom);
     let team = generateTeam(arrayCharacter, 1, 2);
     for (let character of team) {
       this.position.push(new PositionedCharacter(character, this.randomPosition(characterRandom)))
@@ -283,9 +282,9 @@ export default class GameController {
   }
 
   showWin() {
-    this.teamComputer = this.position.filter(item => item.character.type == "Undead" || item.character.type == "Daemon" || item.character.type == "Vampire");
+    this.teamComputer = this.position.filter(item => item.character.type == "undead" || item.character.type == "daemon" || item.character.type == "vampire");
   
-    this.teamGamer = this.position.filter(item => item.character.type == "Bowman" || item.character.type == "Magician" || item.character.type == "Swordsman");
+    this.teamGamer = this.position.filter(item => item.character.type == "bowman" || item.character.type == "magician" || item.character.type == "swordsman");
  
     if (this.teamComputer.length === 0) {
       this.level += 1;
@@ -293,7 +292,6 @@ export default class GameController {
       for (let char of this.teamGamer) {
         this.scores += char.character.health;
       }
-      console.log(this.scores);
       for (let char of this.teamGamer) {
         char.position = this.randomPosition(this.randomGamer);
       };
